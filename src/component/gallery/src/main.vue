@@ -70,7 +70,7 @@ export default {
     }
   },
   created () {
-    this.setDataList()2
+    this.setDataList()
   },
   watch: {
     list () {
