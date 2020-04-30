@@ -1,0 +1,41 @@
+@keyframes loading-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.zero-loading {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  color: $--color-text-secondary;
+
+  &:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -20px;
+    margin-left: -20px;
+    font-family: "iconfont" !important;
+    font-size: 40px;
+    content: "\e65d";
+    animation: loading-rotate 2s linear infinite;
+  }
+}
+
+.lock-scroll {
+  overflow: hidden;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  outline: none;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.icon-button {
+
+}
