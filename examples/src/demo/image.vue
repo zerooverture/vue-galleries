@@ -4,9 +4,10 @@
     <div class="example">
       <div class="example-wrap">
         <div class="block" v-for="fit in fits" :key="fit">
-          <zero-image style="width: 100px; height: 100px"
+          <p>{{fit}}</p>
+          <zg-image style="width: 100px; height: 100px"
                       :src="url"
-                      :fit="fit"></zero-image>
+                      :fit="fit"></zg-image>
         </div>
       </div>
       <pre class="example-code">

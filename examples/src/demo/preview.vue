@@ -4,15 +4,15 @@
     <div class="example">
       <div class="example-wrap">
         <div class="block">
-          <zero-image lazy
+          <zg-image lazy
                       style="width: 300px;"
                       :src="url1"
                       :preview="previewOptions"
-          ></zero-image>
+          ></zg-image>
         </div>
         <div class="block">
-          <zero-image style="width: 300px;" :src="url2"
-                      :preview="[url1,url2]"></zero-image>
+          <zg-image style="width: 300px;" :src="url2"
+                      :preview="[url1,url2]"></zg-image>
         </div>
       </div>
       <pre class="example-code">

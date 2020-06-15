@@ -1,7 +1,7 @@
-import ZeroWaterfall from './src/main.vue'
+import ZgWaterfall from './src/main.vue'
 
-ZeroWaterfall.install = function (Vue) {
-  Vue.component(ZeroWaterfall.name, ZeroWaterfall)
+ZgWaterfall.install = function (Vue) {
+  Vue.component(ZgWaterfall.name, ZgWaterfall)
 }
 
-export default ZeroWaterfall
+export default ZgWaterfall

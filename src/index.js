@@ -1,15 +1,15 @@
 import './asset/icons.scss'
 import './asset/transition.scss'
 import './asset/style.scss'
-import ZeroGallery from './component/gallery'
-import ZeroImage from './component/image'
-import ZeroWaterfall from './component/waterfall'
+import ZgGallery from './component/gallery'
+import ZgImage from './component/image'
+import ZgWaterfall from './component/waterfall'
 import preview from './directive/preview'
 
 const components = [
-  ZeroGallery,
-  ZeroImage,
-  ZeroWaterfall
+  ZgGallery,
+  ZgImage,
+  ZgWaterfall
 ]
 
 const install = function (Vue, opts = {}) {
@@ -41,7 +41,7 @@ const install = function (Vue, opts = {}) {
 
 export default {
   install,
-  ZeroGallery,
-  ZeroImage,
-  ZeroWaterfall
+  ZgGallery,
+  ZgImage,
+  ZgWaterfall
 }

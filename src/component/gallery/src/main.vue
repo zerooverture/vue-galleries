@@ -1,28 +1,50 @@
 <template>
   <div
-    class="zero-gallery"
+    class="zg-gallery"
     :class="{
-    [`zero-gallery--${indicatorPosition}`]:indicatorPosition
+    [`zg-gallery--${indicatorPosition}`]:indicatorPosition
   }">
-    <div class="zero-gallery__container">
-      <button></button>
-      <button type="button" class="zero-gallery__arrow zero-gallery__arrow--left"></button>
-      <button type="button" class="zero-gallery__arrow zero-gallery__arrow--right"></button>
+    <div class="zg-gallery__container" :style="{height}">
+      <button type="button" class="zg-gallery__arrow zg-gallery__arrow--left icon-left"
+              @click="throttleSetIndex(activeIndex-1)"></button>
+      <button type="button" class="zg-gallery__arrow zg-gallery__arrow--right icon-right"
+              @click="throttleSetIndex(activeIndex+1)"></button>
+      <zg-gallery-item
+        v-for="(item, index) in dataList"
+        :key="`zg-gallery__item--${index}`"
+        :item="item"
+        :direction="direction"
+        :index="index"
+        :activeIndex="activeIndex"
+        :length="dataList.length"
+        :preview="preview"
+      ></zg-gallery-item>
     </div>
-    <ul class="zero-gallery__indicators">
-      <li
-        class="el-carousel__indicator"
+    <div class="zg-gallery__indicators">
+      <button>left</button>
+      <button>right</button>
+      <a
+        v-for="(item, index) in dataList"
+        :key="`zg-gallery__item--${index}`"
+        class="zg-gallery__indicator"
         :class="{
         'el-carousel__indicator--thumb':thumbIndicator
       }">
-      </li>
-    </ul>
+        <template v-if="thumbIndicator">
+          <img :src="item.thumb" alt="">
+        </template>
+      </a>
+    </div>
   </div>
 </template>
 
 <script>
+import { throttle } from 'throttle-debounce'
+import ZgGalleryItem from './item'
+
 export default {
-  name: 'ZeroGallery',
+  name: 'ZgGallery',
+  components: { ZgGalleryItem },
   props: {
     // 图集列表
     list: {
@@ -32,7 +54,7 @@ export default {
     // 高度
     height: {
       type: String,
-      default: 'auto'
+      default: '300px'
     },
     // 初始化索引
     initialIndex: {
@@ -67,9 +89,20 @@ export default {
     thumbIndicator: {
       type: Boolean,
       default: false
+    },
+    loop: {
+      type: Boolean,
+      default: true
+    },
+    // 开启预览
+    preview: {
+      type: Boolean,
+      default: true
     }
   },
   created () {
+    this.activeIndex = this.initialIndex
+    // this.throttledSetIndex =
     this.setDataList()
   },
   watch: {
@@ -77,17 +110,101 @@ export default {
       this.setDataList()
     }
   },
+  computed: {
+    direction () {
+      return ['right', 'left'].indexOf(this.indicatorPosition) > -1 ? 'vertical' : 'horizontal'
+    },
+    maxIndex () {
+      return this.dataList.length - 1
+    }
+  },
   data () {
     return {
-      dataList: []
+      dataList: [],
+      activeIndex: 0
     }
   },
   methods: {
-    setDataList () {}
+    setDataList () {
+      this.dataList = []
+      for (const item of this.list) {
+        let t
+        if (item instanceof Object) {
+          t = {
+            title: item.title || '',
+            url: item.url,
+            desc: item.desc || '',
+            thumb: item.thumb || item.url
+          }
+        } else {
+          t = { url: item, thumb: item }
+        }
+        this.dataList.push(t)
+      }
+    },
+    setActiveIndex (index) {
+      if ((index < 0 || index > this.maxIndex) && !this.loop) return false
+      if (index < 0) index = this.maxIndex
+      if (index > this.maxIndex) index = 0
+      this.activeIndex = index
+    },
+    throttleSetIndex: throttle(300, true, function (index) { this.setActiveIndex(index) })
+    // onPrev () {
+    //   throttle(300, true, index => {
+    //     this.setActiveItem(index)
+    //   })
+    // },
+    // onNext () {
+    //   this.activeIndex = this.activeIndex < this.maxIndex ? this.activeIndex + 1 : 0
+    // }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+  .zg-gallery {
+    &__container {
+      position: relative;
+      overflow: hidden;
+    }
 
+    &__arrow {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: $--background-color-dim;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+      font-size: 20px;
+      transition: background-color 0.3s;
+      color: $--color-white;
+
+      &:hover {
+        background-color: $--background-color-dark;
+      }
+
+      &--left {
+        left: 0;
+        padding-right: 10px;
+      }
+
+      &--right {
+        right: 0;
+        padding-left: 10px;
+      }
+    }
+
+    &__item {
+      position: absolute !important;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 0;
+      /*transition: transform 0.5s;*/
+      transition: transform .4s ease-in-out
+    }
+  }
 </style>

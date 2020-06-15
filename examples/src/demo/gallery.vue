@@ -3,7 +3,7 @@
     <h2>画廊</h2>
     <div class="example">
       <div class="example-wrap">
-        <zero-gallery :list="list"></zero-gallery>
+        <zg-gallery :list="list" thumb-indicator></zg-gallery>
       </div>
       <pre class="example-code"></pre>
     </div>

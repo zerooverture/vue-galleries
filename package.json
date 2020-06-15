@@ -8,7 +8,7 @@
     "src"
   ],
   "scripts": {
-    "lint": "./node_modules/.bin/eslint src/** build/*",
+    "lint": "./node_modules/.bin/eslint src/** build/* examples/src/**",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.demo.js",
     "build": "cross-env NODE_ENV=production webpack --config build/webpack.build.js",
     "clean": ""
@@ -17,6 +17,9 @@
     "type:": "git",
     "url": "git@github.com:zerooverture/vue-galleries.git"
   },
+  "pre-commit": [
+    "lint"
+  ],
   "author": {
     "name": "Zero<zero@yuhi.cc>",
     "url": "http://lingzhixuqu.com"

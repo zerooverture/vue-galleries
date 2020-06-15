@@ -3,11 +3,11 @@
         <h2>瀑布流</h2>
         <div class="example">
             <div class="example-wrap">
-                <zero-waterfall :scroll-container="scrollContainer" :footer-height="50" :data="dataList" item-link="${img.url}" link-target="_blank">
+                <zg-waterfall :scroll-container="scrollContainer" :footer-height="50" :data="dataList" item-link="${img.url}" link-target="_blank">
                     <template v-slot:footer="slotProps">
                         {{slotProps.row.title}}
                     </template>
-                </zero-waterfall>
+                </zg-waterfall>
             </div>
             <pre class="example-code">
             </pre>

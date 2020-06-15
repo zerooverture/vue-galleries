@@ -3,9 +3,9 @@
     <h2>懒加载</h2>
     <div class="example">
       <div class="example-wrap">
-        <div style="width: 500px; height: 400px;overflow-y: scroll">
-          <zero-image v-for="url of urls" :key="url" lazy :src="url"
-                      style="min-height: 300px;min-width: 100%"></zero-image>
+        <div style="height: 400px;overflow-y: scroll">
+          <zg-image v-for="url of urls" :key="url" lazy :src="url"
+                      style="min-height: 300px;min-width: 100%"></zg-image>
         </div>
       </div>
     </div>

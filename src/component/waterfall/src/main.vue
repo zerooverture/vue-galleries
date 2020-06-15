@@ -1,5 +1,5 @@
 <template>
-  <div ref="waterfall" class="zero-waterfall">
+  <div ref="waterfall" class="zg-waterfall">
     <div
       :style="{ height: `${Math.max(...point) | 0}px` }"
       class="waterfall-wrap">
@@ -41,7 +41,7 @@
 import { throttle } from 'throttle-debounce'
 
 export default {
-  name: 'ZeroWaterfall',
+  name: 'ZgWaterfall',
   props: {
     // 数据
     data: {
@@ -256,7 +256,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .zero-waterfall {
+  .zg-waterfall {
     width: 100%;
 
     .waterfall-wrap {

@@ -3,7 +3,6 @@
 import Preview from '../component/preview/src/main'
 
 const showPreview = function (binding, el, e) {
-  console.log(binding, el, e)
   const title = el.getAttribute('alt')
   const elSrc = el.getAttribute('src')
   let options = {}
@@ -31,7 +30,6 @@ const showPreview = function (binding, el, e) {
       options.initIndex = index
     }
   }
-  console.log(options)
 
   Preview(options)
 }
@@ -40,7 +38,7 @@ export default {
   bind: function (el, binding) {
     if (!binding.value) return
     binding.pointer = showPreview.bind(this, binding, el)
-    el.classList.add('zero-preview')
+    el.classList.add('zg-preview')
     el.addEventListener('click', binding.pointer, false)
   },
   // inserted: function (el, binding) {

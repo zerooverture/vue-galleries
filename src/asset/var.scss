@@ -7,7 +7,6 @@ $--md-fade-transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1), opacity 3
 $--border-transition-base: border-color .2s cubic-bezier(.645, .045, .355, 1) !default;
 $--color-transition-base: color .2s cubic-bezier(.645, .045, .355, 1) !default;
 
-
 /* Color
 -------------------------- */
 /// color|1|Brand Color|0
@@ -63,12 +62,13 @@ $--border-color-extra-light: #F2F6FC !default;
 // Background
 /// color|1|Background Color|4
 $--background-color-base: #F5F7FA !default;
+$--background-color-dim: mix($--color-black, $--color-white, 30%) !default;
+$--background-color-dark: mix($--color-black, $--color-white, 60%) !default;
 
 /* Link
 -------------------------- */
 $--link-color: $--color-primary-light-2 !default;
 $--link-hover-color: $--color-primary !default;
-
 
 // Box-shadow
 /// boxShadow|1|Shadow|1

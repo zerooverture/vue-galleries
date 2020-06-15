@@ -163,7 +163,7 @@ export function setStyle (element, styleName, value) {
 
   if (typeof styleName === 'object') {
     for (var prop in styleName) {
-      if (styleName.hasOwnProperty(prop)) {
+      if (Object.prototype.hasOwnProperty.call(styleName, prop)) {
         setStyle(element, prop, styleName[prop])
       }
     }

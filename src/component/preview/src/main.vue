@@ -1,23 +1,23 @@
 <template>
   <transition name="el-fade-in">
     <div
-      class="zero-viewer"
+      class="zg-viewer"
       :class="{isFullScreen}"
       v-if="visible">
-      <div class="zp-tools-bar" @click.stop.prevent="">
-        <div class="zp-tools__left">
-          <span class="zp-tools--title">
+      <div class="zg-tools-bar" @click.stop.prevent="">
+        <div class="zg-tools__left">
+          <span class="zg-tools--title">
               {{this.title}}
           </span>
-          <span class="zp-tools--index" v-if="this.list.length>1">
+          <span class="zg-tools--index" v-if="this.list.length>1">
 <!--          {{this.index+1}} / {{this.list.length}}-->
             {{albumLabelReplace(this.albumLabel)}}
           </span>
         </div>
-        <div v-if="current.title" class="zp-tools__center">
+        <div v-if="current.title" class="zg-tools__center">
           {{current.title}}
         </div>
-        <div class="zp-tools__right">
+        <div class="zg-tools__right">
           <button
             class="icon-button"
             :class="{
@@ -31,16 +31,16 @@
           <button class="icon-button icon-close" @click="hide"></button>
         </div>
       </div>
-      <div class="zp-container" @click.stop.prevent="onClickModal">
-        <div class="zp-wrapper" :style="imgStyle" @click.stop.prevent="">
+      <div class="zg-container" @click.stop.prevent="onClickModal">
+        <div class="zg-wrapper" :style="imgStyle" @click.stop.prevent="">
           <transition name="fade" mode="out-in">
-            <div v-if="loading" class="zp-loading zero-loading"></div>
-            <div v-else-if="error" class="zp-error"></div>
-            <img v-else class="zp-image" :src="current.src" :alt="current.title">
+            <div v-if="loading" class="zg-loading zg-loading"></div>
+            <div v-else-if="error" class="zg-error"></div>
+            <img v-else class="zg-image" :src="current.src" :alt="current.title">
           </transition>
-          <div class="zp-nav">
-            <div class="zp-nav__prev icon-left" v-if="showPrev" @click="prevImage"></div>
-            <div class="zp-nav__next icon-right" v-if="showNext" @click="nextImage"></div>
+          <div class="zg-nav">
+            <div class="zg-nav__prev icon-left" v-if="showPrev" @click="prevImage"></div>
+            <div class="zg-nav__next icon-right" v-if="showNext" @click="nextImage"></div>
           </div>
         </div>
       </div>
@@ -53,7 +53,7 @@ import { off, on } from '../../../utils/dom'
 import { exitFullscreen, fullScreen, rafThrottle } from '../../../utils/util'
 
 export default {
-  name: 'ZeroViewer',
+  name: 'ZgViewer',
   props: {
     // 图片标题
     title: {
@@ -125,7 +125,7 @@ export default {
       // },
       imageWidth: 0,
       imageHeight: 0,
-      sizeChange: 0,
+      // sizeChange: 0,
       isFullScreen: false,
       sizeTimer: null,
       img: null
@@ -197,7 +197,7 @@ export default {
       }
       let width = img.width
       let height = img.height
-      const maxWidth = this.maxWidth || window.innerWidth
+      const maxWidth = this.maxWidth || (window.innerWidth - 100)
       const maxHeight = this.maxHeight || (window.innerHeight - 50 - 100)
       let ratio = 1
       let hRatio = 1
@@ -210,9 +210,9 @@ export default {
       ratio = ratio < hRatio ? ratio : hRatio
       width = width * ratio
       height = height * ratio
-      if (this.imageWidth !== width || this.imageHeight !== height) {
-        this.sizeChange = 500
-      }
+      // if (this.imageWidth !== width || this.imageHeight !== height) {
+      //   this.sizeChange = 500
+      // }
       this.imageWidth = width
       this.imageHeight = height
     },
@@ -298,24 +298,30 @@ export default {
 </script>
 
 <style lang="scss">
-  .zero-preview {
-    cursor: zoom-in;
-  }
-
-  .zero-viewer {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-
-    &.isFullScreen {
-      background-color: $--color-black;
+  .zg {
+    &-preview {
+      cursor: zoom-in;
     }
-  }
 
-  .zp {
+    &-viewer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+
+      &.isFullScreen {
+        background-color: $--color-black;
+      }
+    }
+
+    &-viewer &-image {
+      width: 100%;
+      height: 100%;
+    }
+
     &-container {
       /*margin: 0 auto;*/
       width: 100%;
@@ -333,11 +339,6 @@ export default {
       padding: 5px;
       user-select: none;
       transition: all 0.5s;
-    }
-
-    &-image {
-      width: 100%;
-      height: 100%;
     }
 
     &-nav {

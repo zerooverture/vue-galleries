@@ -1,7 +1,7 @@
-import ZeroGallery from './src/main.vue'
+import ZgGallery from './src/main.vue'
 
-ZeroGallery.install = function (Vue) {
-  Vue.component(ZeroGallery.name, ZeroGallery)
+ZgGallery.install = function (Vue) {
+  Vue.component(ZgGallery.name, ZgGallery)
 }
 
-export default ZeroGallery
+export default ZgGallery

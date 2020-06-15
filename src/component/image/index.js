@@ -1,7 +1,7 @@
-import ZeroImage from './src/main.vue'
+import ZgImage from './src/main.vue'
 
-ZeroImage.install = function (Vue) {
-  Vue.component(ZeroImage.name, ZeroImage)
+ZgImage.install = function (Vue) {
+  Vue.component(ZgImage.name, ZgImage)
 }
 
-export default ZeroImage
+export default ZgImage

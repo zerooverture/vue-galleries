@@ -1,17 +1,17 @@
 <template>
-  <div class="zero-image">
+  <div class="zg-image">
     <transition name="fade" mode="out-in">
       <slot v-if="loading" name="placeholder">
-        <div class="zero-image__placeholder zero-loading" key="placeholder"></div>
+        <div class="zg-image__placeholder zg-loading" key="placeholder"></div>
       </slot>
       <slot v-else-if="error" name="error">
-        <div class="zero-image__error" key="error">加载失败</div>
+        <div class="zg-image__error" key="error">加载失败</div>
       </slot>
       <img
         v-else
         v-preview="preview"
         key="image"
-        class="zero-image__inner"
+        class="zg-image__inner"
         v-bind="$attrs"
         v-on="$listeners"
         @click="clickHandler"
@@ -41,7 +41,7 @@ const ObjectFit = {
   SCALE_DOWN: 'scale-down'
 }
 export default {
-  name: 'ZeroImage',
+  name: 'ZgImage',
   props: {
     // 图集列表
     src: {
@@ -203,7 +203,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .zero-image {
+  .zg-image {
     position: relative;
     display: inline-block;
     overflow: hidden;
