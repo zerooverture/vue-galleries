@@ -23,7 +23,7 @@ export default {
         'https://cdn.shibe.online/shibes/8955ddccc917fb8348750cf22add849bbeb226b7.jpg',
         'https://cdn.shibe.online/shibes/3d6d6f48bb8930a769bce442d4f00f6b322e71fd.jpg',
         'https://cdn.shibe.online/shibes/1c93388acb45de976bc0b8f4d16a1966c32bb62b.jpg',
-        'https://cdn.shibe.online/shibes/fc1658fc591d16cd93cd1efb50fe20f3334f8681.jpg'
+        'https://cdn.shibe.online/shibes/fc1658fc591d16cd93cd1efb50fe20f3334f8681.jpg',
       ]
     }
   }
