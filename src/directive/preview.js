@@ -41,12 +41,6 @@ export default {
     el.classList.add('zg-preview')
     el.addEventListener('click', binding.pointer, false)
   },
-  // inserted: function (el, binding) {
-  //   setTimeout(() => {
-  //     console.log('i', el, binding)
-  //     el.removeEventListener('click', binding.pointer)
-  //   }, 2000)
-  // },
   unbind: function (el, binding) {
     el.removeEventListener('click', binding.pointer, false)
   }

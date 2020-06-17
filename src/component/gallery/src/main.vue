@@ -192,7 +192,6 @@ export default {
       }
     },
     onPrevIndicator () {
-      // console.log(this.indicatorOffsetMax)
       if (this.indicatorOffset > 0) {
         this.indicatorOffset -= 1
       } else {

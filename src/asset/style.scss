@@ -4,15 +4,18 @@
   }
 }
 
-.zg-gallery {
+.zg-gallery, .zg-viewer {
   button {
     border: none;
-    //background-color: transparent;
-    //color: inherit;
     outline: none;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: color 0.3s, background-color 0.3s;
   }
+}
+
+.zg-viewer button {
+  background-color: transparent;
+  color: inherit;
 }
 
 .zg-loading {

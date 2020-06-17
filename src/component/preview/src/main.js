@@ -32,11 +32,9 @@ const Preview = function (options) {
     document.body.appendChild(instance.$el)
   }
   options = Object.assign({}, defaults, options)
-  console.log(options)
   for (const key of Object.keys(options)) {
     instance[key] = options[key]
   }
-  console.log(instance)
   Vue.nextTick(() => {
     instance.visible = true
   })

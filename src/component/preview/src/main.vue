@@ -26,9 +26,9 @@
             }"
             :title="isFullScreen?'退出全屏':'全屏显示'"
             @click="toggleScreen"
-            @keydown.prevent.stop="toggleScreen">
+            @keydown.enter.prevent.stop="toggleScreen">
           </button>
-          <button class="icon-button icon-close" @click="hide"></button>
+          <button class="icon-button icon-close" @click="hide" @keydown.enter.stop=""></button>
         </div>
       </div>
       <div class="zg-container" @click.stop.prevent="onClickModal">
