@@ -10,8 +10,6 @@
                       :fit="fit"></zg-image>
         </div>
       </div>
-      <pre class="example-code">
-            </pre>
     </div>
   </div>
 </template>

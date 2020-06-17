@@ -5,7 +5,6 @@
       <div class="example-wrap">
         <zg-gallery :list="list" thumb-indicator></zg-gallery>
       </div>
-      <pre class="example-code"></pre>
     </div>
   </div>
 </template>

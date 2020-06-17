@@ -15,8 +15,6 @@
                       :preview="[url1,url2]"></zg-image>
         </div>
       </div>
-      <pre class="example-code">
-            </pre>
     </div>
   </div>
 </template>

@@ -9,8 +9,6 @@
                     </template>
                 </zg-waterfall>
             </div>
-            <pre class="example-code">
-            </pre>
         </div>
     </div>
 </template>
