@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { throttle } from 'throttle-debounce'
+
 export default {
   name: 'ZgGalleryItem',
   props: {
@@ -28,6 +30,10 @@ export default {
   },
   mounted () {
     this.width = this.$refs.img.$el.clientWidth
+    this.throttleWidth = throttle(300, () => {
+      this.width = this.$refs.img.$el.clientWidth
+    })
+    window.addEventListener('resize', this.throttleWidth)
   },
   computed: {
     /**
@@ -63,8 +69,12 @@ export default {
   },
   data () {
     return {
-      width: 0
+      width: 0,
+      throttleWidth: null
     }
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.throttleWidth)
   }
 }
 </script>

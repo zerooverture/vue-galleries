@@ -138,7 +138,7 @@ export default {
     }
     // this.scrollHeight = this.container.scrollHeight
     this.container.addEventListener('scroll', this.scrollHandler)
-    this.throttledResizeHandler = throttle(1000, this.initSize)
+    this.throttledResizeHandler = throttle(300, this.initSize)
     window.addEventListener('resize', this.throttledResizeHandler)
     this.initSize()
   },
@@ -262,6 +262,7 @@ export default {
     .waterfall-wrap {
       margin: 0 auto;
       position: relative;
+      overflow: hidden;
     }
 
     .waterfall-box {
