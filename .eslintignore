@@ -1,5 +1,5 @@
-node_modules
-src/asset/
+node_modules/
+src/assets/
 dist/
 lib/
 temp/

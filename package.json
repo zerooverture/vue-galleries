@@ -8,7 +8,7 @@
     "src"
   ],
   "scripts": {
-    "lint": "./node_modules/.bin/eslint src/** build/* examples/src/**",
+    "lint": "./node_modules/.bin/eslint --ext .js,.vue --ignore-path .eslintignore ./",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.demo.js",
     "build": "cross-env NODE_ENV=production webpack --config build/webpack.build.js",
     "clean": ""

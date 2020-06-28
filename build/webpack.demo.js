@@ -71,7 +71,7 @@ module.exports = {
             loader: 'sass-resources-loader',
             options: {
               // Provide path to the file with resources
-              resources: './src/asset/var.scss'
+              resources: './src/assets/var.scss'
               //
               // // Or array of paths
               // resources: ['./path/to/vars.scss', './path/to/mixins.scss']

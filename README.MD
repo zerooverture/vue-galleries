@@ -1,15 +1,15 @@
 > Vue-Galleries a Picture display component for Vue
 
-- Gallery:(Gallery display system - Carousel)  
-- Image:(Picture show system)  
-- Preview:(Image Zoom in preview)  
-- Waterfall(Waterfall flow show)  
+- Gallery:(Gallery display system - Carousel)
+- Image:(Picture show system)
+- Preview:(Image Zoom in preview)
+- Waterfall(Waterfall flow show)
 ---
 ### Install
 ```console
-npm install vue-gallery -S
+npm install vue-galleries -S
 or
-yarn add vue-gallery
+yarn add vue-galleries
 ```
 
 Vue-Galleries is licensed under a [MIT License](../LICENSE).
