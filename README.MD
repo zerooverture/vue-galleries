@@ -14,7 +14,7 @@ yarn add vue-galleries
 
 Vue-Galleries is licensed under a [MIT License](../LICENSE).
 
-###Quick Start
+### Quick Start
 ```js
 import Vue from 'vue'
 import VueGalleries from 'vue-galleries'
