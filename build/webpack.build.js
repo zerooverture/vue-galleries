@@ -24,6 +24,9 @@ module.exports = {
     extensions: ['.js', '.ts', '.vue', '.json'],
     alias: config.alias
   },
+  externals: {
+    vue: 'vue'
+  },
   module: {
     rules: [
       {

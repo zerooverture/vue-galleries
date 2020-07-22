@@ -32,6 +32,8 @@ const showPreview = function (binding, el, e) {
   }
 
   Preview(options)
+  e.stopPropagation()
+  e.preventDefault()
 }
 
 export default {
