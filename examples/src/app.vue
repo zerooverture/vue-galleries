@@ -43,7 +43,7 @@ export default {
   }
 
   .block {
-    padding: 30px 0;
+    padding: 30px 20px;
     text-align: center;
     border-right: 1px solid #eff2f6;
     display: inline-block;

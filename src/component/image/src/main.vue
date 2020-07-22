@@ -9,7 +9,7 @@
       </slot>
       <img
         v-else
-        v-preview="preview"
+        v-zg-preview="preview"
         key="image"
         class="zg-image__inner"
         v-bind="$attrs"

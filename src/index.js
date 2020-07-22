@@ -36,7 +36,7 @@ const install = function (Vue, opts = {}) {
   // Vue.prototype.$notify = Notification
   // Vue.prototype.$message = Message
 
-  Vue.directive('preview', preview)
+  Vue.directive('zg-preview', preview)
 }
 
 export default {

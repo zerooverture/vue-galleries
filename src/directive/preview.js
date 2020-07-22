@@ -33,15 +33,24 @@ const showPreview = function (binding, el, e) {
 
   Preview(options)
 }
+
 export default {
   // pointer: null,
   bind: function (el, binding) {
-    if (!binding.value) return
-    binding.pointer = showPreview.bind(this, binding, el)
-    el.classList.add('zg-preview')
-    el.addEventListener('click', binding.pointer, false)
-  },
-  unbind: function (el, binding) {
-    el.removeEventListener('click', binding.pointer, false)
+    let imgEls = []
+    if (el instanceof HTMLImageElement || el.tagName === 'IMG') {
+      if (!binding.value) return
+      // binding.pointer = showPreview.bind(this, binding, el)
+      // el.classList.add('zg-preview')
+      // el.addEventListener('click', binding.pointer, false)
+      imgEls = [el]
+    } else {
+      imgEls = el.querySelectorAll('img')
+    }
+    for (const imgEl of imgEls) {
+      binding.pointer = showPreview.bind(this, binding, imgEl)
+      imgEl.classList.add('zg-preview')
+      imgEl.addEventListener('click', binding.pointer, false)
+    }
   }
 }

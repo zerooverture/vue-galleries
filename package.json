@@ -1,6 +1,6 @@
 {
   "name": "vue-galleries",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Gallery and Image Preview for Vue.js.",
   "main": "lib/index.js",
   "files": [
