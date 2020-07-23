@@ -1,33 +1,36 @@
 <template>
   <div ref="waterfall" class="zg-waterfall">
-    <div
-      :style="{ height: `${Math.max(...point) | 0}px` }"
-      class="waterfall-wrap">
+    <div :style="{ height: `${Math.max(...point) | 0}px` }" class="waterfall-wrap">
       <transition-group name="fade">
-        <template v-for="(photo,index) in dataList">
+        <template v-for="(photo, index) in dataList">
           <div
             v-if="(allShow ||(photo.y + photo.totalHeight > scrollTop && photo.y < scrollHeight))"
             :key="`waterfall-box-${index}`"
-            :style="{width: `${colWidth}px`,padding:`${colPadding}px`, transform: `translateX(${photo.x | 0}px) translateY(${photo.y | 0}px)`}"
-            class="waterfall-box">
-            <a :class="itemClass" :href="itemLink | linkReplace(photo)" :target="linkTarget">
+            :style="{
+              width: `${colWidth}px`,
+              padding: `${colPadding}px`,
+              transform: `translateX(${photo.x | 0}px) translateY(${
+                photo.y | 0
+              }px)`,
+            }"
+            class="waterfall-box"
+          >
+            <a :class="itemClass" :href="itemLink | linkReplace(photo)" :target="linkTarget" @click="itemClick(photo)">
               <div class="waterfall-logo-wrap">
-                <slot v-bind:row="photo" v-bind:$index="index">
+                <slot :row="photo" :$index="index">
                   <img
-                    :style="{ width:`${photo.imgWidth || 0}px`, height: `${photo.imgHeight || 0}px` }"
-                    :src="photo.img.url"
+                    :style="{
+                      width: `${photo.imgWidth || 0}px`,
+                      height: `${photo.imgHeight || 0}px`,
+                    }"
+                    :src="srcUrl | linkReplace(photo)"
                     :alt="photo.title"
-                    class="waterfall-logo"/>
+                    class="waterfall-logo"
+                  />
                 </slot>
               </div>
-              <div
-                v-if="$scopedSlots.footer"
-                class="waterfall-footer"
-                :style="{height:`${footerHeight}px`}">
-                <slot
-                  name="footer"
-                  v-bind:row="photo"
-                  v-bind:$index="index"></slot>
+              <div v-if="$scopedSlots.footer" class="waterfall-footer" :style="{ height: `${footerHeight}px` }">
+                <slot name="footer" :row="photo" :$index="index"></slot>
               </div>
             </a>
           </div>
@@ -42,6 +45,20 @@ import { throttle } from 'throttle-debounce'
 
 export default {
   name: 'ZgWaterfall',
+  filters: {
+    linkReplace (link, item) {
+      if (!link) return null
+      return link.replace(/\${([a-zA-Z\d_.]+)}/g, (key, $1) => {
+        const keys = $1.split('.')
+        return keys.reduce((rs, key) => {
+          return rs[key]
+        }, item)
+      })
+    },
+    imgUrlReplace (urlText, item) {
+      return this.linkReplace(urlText, item) || item[this.attrImg].url
+    }
+  },
   props: {
     // 数据
     data: {
@@ -67,7 +84,7 @@ export default {
     },
     // 滚动条绑定的容器
     scrollContainer: {
-      type: [HTMLElement, Object, String, Window],
+      type: [Object, String],
       default: null
     },
     // 底部插槽的高度
@@ -85,6 +102,14 @@ export default {
       default: null
     },
     linkTarget: {
+      type: String,
+      default: null
+    },
+    attrImg: {
+      type: String,
+      default: 'img'
+    },
+    srcUrl: {
       type: String,
       default: null
     }
@@ -142,20 +167,32 @@ export default {
     window.addEventListener('resize', this.throttledResizeHandler)
     this.initSize()
   },
+  beforeDestroy () {
+    this.container.removeEventListener('scroll', this.scrollHandler)
+    window.removeEventListener('resize', this.throttledResizeHandler)
+  },
   methods: {
     scrollHandler () {
       // 滚动条改变时获取滚动条的位置和高度用来计算当前显示的内容
 
       // 滚动条的实际高度要减去当前组件所在的位置,因为对象的顶部距离是相对于组件的最外包装
       this.scrollTop = this.containerScrollTop() - this.containerOffset
-      this.scrollHeight = this.scrollTop + this.getClientHeight() - this.containerOffset
+      this.scrollHeight =
+        this.scrollTop + this.getClientHeight() - this.containerOffset
     },
     containerScrollTop () {
       // 获取滚动条所在容器的滚动条高度
-      return this.container.scrollTop || document.documentElement.scrollTop || document.body.scrollTop
+      return (
+        this.container.scrollTop ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop
+      )
     },
     getClientHeight () {
-      let h = this.container.clientHeight || document.documentElement.clientHeight || document.body.clientHeight
+      let h =
+        this.container.clientHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight
       if (this.container !== this.$refs.waterfall) {
         h += this.containerOffset
       }
@@ -181,22 +218,22 @@ export default {
     flow () {
       for (let index = 0; index < this.dataList.length; index++) {
         const data = this.dataList[index]
-        if (data.img instanceof Object && data.img.height) {
+        if (data[this.attrImg] instanceof Object && data[this.attrImg].height) {
           // 判断传入的对象是否是一个包括宽高的对象,即如果给出的数据中包括了宽高 则可以直接进行渲染
           this.appendItem(data)
         } else {
           // 如果没有给出宽高,则预加载图片获取图片的宽高
           const img = new Image()
-          img.onload = e => {
+          img.onload = (e) => {
             // data.index = index
-            data.img = {
+            data[this.attrImg] = {
               width: img.width,
               height: img.height,
-              url: data.img
+              url: data[this.attrImg]
             }
             this.appendItem(data)
           }
-          img.src = data.img
+          img.src = data[this.attrImg]
         }
       }
     },
@@ -215,11 +252,11 @@ export default {
       // colPadding 的偏移量
       const paddingOffset = this.colPadding * 2
       // 宽高缩放比率
-      const rate = (this.colWidth - paddingOffset) / item.img.width
+      const rate = (this.colWidth - paddingOffset) / item[this.attrImg].width
       // 比率后的宽度
-      const imgWidth = item.img.width * rate
+      const imgWidth = item[this.attrImg].width * rate
       // 比率后的高度
-      const imgHeight = item.img.height * rate
+      const imgHeight = item[this.attrImg].height * rate
       // 整个对象所占高度,图片高度+colPadding偏移量+footer的高度+footer的上下padding(这个padding在css中)
       const totalHeight = imgHeight + paddingOffset + this.footerHeight + 12
       // 对象的X轴位置= 准备插入的列在一排缩占的索引 * 对象宽度 + 左侧偏移量
@@ -235,22 +272,10 @@ export default {
       this.$set(item, 'loaded', true)
       // 更新插入列的最低插入点,以便下一个插入使用
       this.$set(this.point, x, this.point[x] + totalHeight)
+    },
+    itemClick (item) {
+      this.$emit('item-click', item)
     }
-  },
-  filters: {
-    linkReplace (link, item) {
-      if (!link) return null
-      return link.replace(/\${([a-zA-Z\d_.]+)}/g, (key, $1) => {
-        const keys = $1.split('.')
-        return keys.reduce((rs, key) => {
-          return rs[key]
-        }, item)
-      })
-    }
-  },
-  beforeDestroy () {
-    this.container.removeEventListener('scroll', this.scrollHandler)
-    window.removeEventListener('resize', this.throttledResizeHandler)
   }
 }
 </script>
@@ -271,8 +296,12 @@ export default {
       left: 0;
       transition: transform 0.3s, background-color 0.5s, box-shadow 0.3s,
       opacity 0.5s;
-      border-radius: 8px;
+      border-radius: 4px;
       box-sizing: border-box;
+
+      a {
+        cursor: pointer;
+      }
 
       &:hover {
         background-color: #fff;
@@ -290,7 +319,7 @@ export default {
       background-color: #fff;
       box-shadow: $--box-shadow-light;
       transition: box-shadow 0.3s;
-      border-radius: 8px;
+      border-radius: 4px;
       overflow: hidden;
 
       &:hover .waterfall-item--link {
@@ -303,12 +332,12 @@ export default {
     }
 
     .waterfall-logo-wrap {
-      border-radius: 8px;
+      border-radius: 4px;
     }
 
     .waterfall-logo {
       display: block;
-      border-radius: 8px;
+      border-radius: 4px;
       width: 100%;
       background-color: #999;
     }
