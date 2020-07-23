@@ -201,26 +201,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-  .zg-image {
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-
-    &__placeholder, &__error {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: $--background-color-base;
-      color: $--color-text-secondary;
-      min-width: 100px;
-      min-height: 100px;
-    }
-
-    &__inner, &__placeholder, &__error {
-      width: 100%;
-      height: 100%;
-    }
-  }
-</style>

@@ -1,6 +1,7 @@
 import './assets/icons.scss'
 import './assets/transition.scss'
 import './assets/style.scss'
+import './index.scss'
 import ZgGallery from './component/gallery'
 import ZgImage from './component/image'
 import ZgWaterfall from './component/waterfall'

@@ -1,6 +1,7 @@
 const path = require('path')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const config = require('./config')
 
@@ -24,9 +25,9 @@ module.exports = {
     extensions: ['.js', '.ts', '.vue', '.json'],
     alias: config.alias
   },
-  externals: {
-    vue: 'vue'
-  },
+  // externals: {
+  //   vue: 'vue'
+  // },
   module: {
     rules: [
       {
@@ -42,7 +43,7 @@ module.exports = {
       }, {
         test: /\.(scss|css)$/,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'sass-loader',
           {
@@ -79,6 +80,7 @@ module.exports = {
     ]
   },
   optimization: {
+    // minimize: false,
     minimizer: [
       new TerserPlugin({
         terserOptions: {
@@ -90,7 +92,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new MiniCssExtractPlugin({ // 抽离css样式插件
+      filename: 'index.css' // 抽离后的文件名
+    })
   ],
   performance: {
     hints: false

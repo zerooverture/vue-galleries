@@ -1,8 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-// const CopyWebpackPlugin = require('copy-webpack-plugin')
-// const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = require('./config')

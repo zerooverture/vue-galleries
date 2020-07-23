@@ -1,0 +1,121 @@
+.zg {
+  &-preview {
+    cursor: zoom-in;
+  }
+
+  &-viewer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+
+    &.isFullScreen {
+      background-color: $--color-black;
+    }
+  }
+
+  &-viewer &-image {
+    width: 100%;
+    height: 100%;
+  }
+
+  &-container {
+    /*margin: 0 auto;*/
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-wrapper {
+    position: relative;
+    box-sizing: content-box;
+    border-radius: 4px;
+    background-color: $--color-white;
+    padding: 5px;
+    user-select: none;
+    transition: all 0.5s;
+  }
+
+  &-nav {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    &__prev, &__next {
+      cursor: pointer;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s;
+      font-size: 48px;
+      color: #fff;
+      position: relative;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &:before {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    &__prev {
+      float: left;
+      width: 40%;
+
+      &:before {
+        left: 10px;
+      }
+    }
+
+    &__next {
+      float: right;
+      width: 60%;
+
+      &:before {
+        right: 10px;
+      }
+    }
+  }
+
+  &-tools {
+    &-bar {
+      padding: 5px 10px;
+      border-radius: 2px;
+      position: relative;
+      /*background-color: rgba(0, 0, 0, 0.2);*/
+      background-color: $--color-black;
+      color: $--color-white;
+      font-size: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .icon-button {
+        color: $--color-text-placeholder;
+
+        &:before {
+          vertical-align: middle;
+        }
+
+        &:hover {
+          color: $--color-white;
+        }
+      }
+
+      .icon-smallscreen, .icon-fullscreen {
+        height: 19px;
+        font-size: 20px;
+      }
+    }
+  }
+}

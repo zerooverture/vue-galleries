@@ -15,7 +15,7 @@ const showPreview = function (binding, el, e) {
         src: item
       })
     })
-  } else if (binding.value instanceof Object) {
+  } else if (typeof binding.value === 'object') {
     options = binding.value
   }
   if (!options.list) {

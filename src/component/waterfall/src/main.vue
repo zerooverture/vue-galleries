@@ -217,7 +217,7 @@ export default {
     flow () {
       for (let index = 0; index < this.dataList.length; index++) {
         const data = this.dataList[index]
-        if (data[this.attrImg] instanceof Object && data[this.attrImg].height) {
+        if (typeof data[this.attrImg] === 'object' && data[this.attrImg].height) {
           // 判断传入的对象是否是一个包括宽高的对象,即如果给出的数据中包括了宽高 则可以直接进行渲染
           this.appendItem(data)
         } else {
@@ -278,72 +278,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-  .zg-waterfall {
-    width: 100%;
-
-    .waterfall-wrap {
-      margin: 0 auto;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .waterfall-box {
-      position: absolute;
-      top: 0;
-      left: 0;
-      transition: transform 0.3s, background-color 0.5s, box-shadow 0.3s,
-      opacity 0.5s;
-      border-radius: 4px;
-      box-sizing: border-box;
-
-      a {
-        cursor: pointer;
-      }
-
-      &:hover {
-        background-color: #fff;
-        box-shadow: $--box-shadow-dark;
-
-        .waterfall-item {
-          box-shadow: none;
-        }
-      }
-    }
-
-    .waterfall-item {
-      display: block;
-      position: relative;
-      background-color: #fff;
-      box-shadow: $--box-shadow-light;
-      transition: box-shadow 0.3s;
-      border-radius: 4px;
-      overflow: hidden;
-
-      &:hover .waterfall-item--link {
-        color: $--link-color;
-      }
-
-      &--link {
-        transition: color 0.3s;
-      }
-    }
-
-    .waterfall-logo-wrap {
-      border-radius: 4px;
-    }
-
-    .waterfall-logo {
-      display: block;
-      border-radius: 4px;
-      width: 100%;
-      background-color: #999;
-    }
-
-    .waterfall-footer {
-      overflow: hidden;
-      padding: 6px 0;
-    }
-  }
-</style>

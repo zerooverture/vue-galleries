@@ -24,7 +24,7 @@
         :direction="direction"
         :index="index"
         :activeIndex="activeIndex"
-        :length="dataList.length"
+        :length="list.length"
         :preview="preview"
         :show-info="showContainer"
         :attr-url="attrUrl"
@@ -177,7 +177,6 @@ export default {
       indicatorWrapWidth: 0,
       indicatorWrap: null,
       indicatorOffset: 0,
-      dataList: [],
       activeIndex: 0,
       showContainer: false
     }
@@ -186,7 +185,7 @@ export default {
     setDataList () {
       this.dataList = []
       for (const item of this.list) {
-        if (item instanceof Object) {
+        if (typeof item === 'object') {
           this.dataList.push(item)
         } else {
           this.dataList.push({ [this.attrUrl]: item, [this.attrThumb]: item })
@@ -233,169 +232,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-  .zg-gallery {
-
-    .slide-fade {
-      &-right,
-      &-left,
-      &-bottom {
-        &-enter-active,
-        &-leave-active {
-          transition: all 0.3s ease;
-        }
-
-        &-enter,
-        &-leave-to {
-          transform: translateX(10px);
-          opacity: 0;
-        }
-      }
-
-      &-left {
-        &-enter,
-        &-leave-to {
-          transform: translateX(-10px);
-        }
-      }
-
-      &-bottom {
-        &-enter,
-        &-leave-to {
-          transform: translateY(50px);
-        }
-      }
-    }
-
-    &__container {
-      position: relative;
-      overflow: hidden;
-    }
-
-    &__arrow {
-      position: absolute;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background-color: $--background-color-dim;
-      top: 50%;
-      margin-top: -25px;
-      z-index: 1;
-      font-size: 20px;
-      transition: background-color 0.3s;
-      color: $--color-white;
-
-      &:hover {
-        background-color: $--background-color-dark;
-      }
-
-      &--left {
-        left: 10px;
-        padding-right: 10px;
-      }
-
-      &--right {
-        right: 10px;
-        padding-left: 10px;
-      }
-    }
-
-    &__item {
-      position: absolute !important;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: 0;
-      /*transition: transform 0.5s;*/
-      transition: transform .4s ease-in-out;
-
-      &--child {
-        width: 100%;
-        height: 100%;
-      }
-
-      &--info {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        color: #fff;
-        padding: 10px;
-        border-radius: 2px;
-      }
-    }
-
-    &__indicator {
-      position: relative;
-      height: 54px;
-      line-height: 54px;
-      padding: 0 45px;
-      overflow: hidden;
-      margin-top: 20px;
-
-      img {
-        width: 46px;
-        height: 46px;
-        display: block;
-        border-radius: 1px;
-      }
-
-      &--wrap {
-        height: 54px;
-        padding: 2px 0;
-        overflow: hidden;
-        margin: 0 auto;
-        transition: width 0.3s;
-      }
-
-      &--block {
-        transition: all 0.3s;
-
-        &:after {
-          content: "";
-          display: block;
-          clear: both;
-        }
-      }
-
-      &--item {
-        width: 50px;
-        height: 50px;
-        float: left;
-        cursor: pointer;
-        box-sizing: border-box;
-        border-width: 2px;
-        border-style: solid;
-        border-color: transparent;
-        border-radius: 4px;
-        opacity: 0.5;
-        transition: opacity 0.3s;
-
-        &:hover, &.active {
-          opacity: 1;
-        }
-
-        &.active {
-          border-color: $--color-primary;
-        }
-      }
-
-      &--left, &--right {
-        font-size: 18px;
-        width: 30px;
-        border-radius: 4px;
-      }
-
-      &--left {
-        left: 10px;
-      }
-
-      &--right {
-        right: 10px;
-      }
-    }
-  }
-</style>
