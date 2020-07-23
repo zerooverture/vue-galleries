@@ -3,7 +3,12 @@
     <h2>画廊</h2>
     <div class="example">
       <div class="example-wrap">
-        <zg-gallery :list="list" thumb-indicator></zg-gallery>
+        <zg-gallery :list="list" thumb-indicator>
+          <div slot-scope="$scope" style="padding: 10px">
+            {{ $scope }}
+            {{ 111111 }}
+          </div>
+        </zg-gallery>
       </div>
     </div>
   </div>

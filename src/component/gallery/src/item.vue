@@ -1,16 +1,22 @@
 <template>
-  <zg-image
-    ref="img"
-    lazy
-    fit="contain"
-    class="zg-gallery__item"
-    :src="item.url"
-    :preview="preview"
-    :style="itemStyle"></zg-image>
+  <div class="zg-gallery__item" :style="adjust.style">
+    <zg-image
+      v-if="adjust.show"
+      ref="img"
+      fit="contain"
+      :src="item[attrUrl]"
+      class="zg-gallery__item--child"
+      :preview="preview"></zg-image>
+    <transition name="slide-fade-bottom">
+      <div v-show="showInfo" class="zg-gallery__item--info">
+        <slot class="zg-gallery__item--title" :row="item"></slot>
+      </div>
+    </transition>
+  </div>
 </template>
 
 <script>
-import { throttle } from 'throttle-debounce'
+// import { throttle } from 'throttle-debounce'
 
 export default {
   name: 'ZgGalleryItem',
@@ -25,15 +31,23 @@ export default {
       type: Number,
       default: 0
     },
+    showInfo: {
+      type: Boolean,
+      default: false
+    },
+    attrUrl: {
+      type: String,
+      default: 'url'
+    },
+    width: {
+      type: Number,
+      default: -1
+    },
     length: Number,
     preview: Boolean
   },
   mounted () {
-    this.width = this.$refs.img.$el.clientWidth
-    this.throttleWidth = throttle(300, () => {
-      this.width = this.$refs.img.$el.clientWidth
-    })
-    window.addEventListener('resize', this.throttleWidth)
+    this.loaded = true
   },
   computed: {
     /**
@@ -49,7 +63,7 @@ export default {
     offset () {
       return this.processIndex - this.activeIndex
     },
-    itemStyle () {
+    adjust () {
       const translateType = this.direction === 'vertical' ? 'translateY' : 'translateX'
       const value = `${translateType}(${this.translate}px) scale(${this.scale})`
       const style = {
@@ -58,7 +72,7 @@ export default {
       if (Math.abs(this.offset) > 1) {
         style.transition = 'none'
       }
-      return style
+      return { show: this.loaded && this.width && Math.abs(this.translate) <= this.width, style }
     },
     translate () {
       return this.offset * this.width
@@ -69,12 +83,10 @@ export default {
   },
   data () {
     return {
-      width: 0,
-      throttleWidth: null
+      loaded: false
     }
   },
   beforeDestroy () {
-    window.removeEventListener('resize', this.throttleWidth)
   }
 }
 </script>

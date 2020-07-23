@@ -84,7 +84,6 @@ export default {
     },
     // 滚动条绑定的容器
     scrollContainer: {
-      type: [Object, String],
       default: null
     },
     // 底部插槽的高度
